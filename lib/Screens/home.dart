@@ -18,8 +18,10 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    foundTodos = todoList;
-    super.initState();
+    setState(() {
+      foundTodos = todoList;
+      super.initState();
+    });
   }
 
   @override
@@ -122,6 +124,16 @@ class _HomeState extends State<Home> {
   void handleTodoChange(Todo todo) {
     setState(() {
       todo.isDone = !todo.isDone;
+
+      if (todo.isDone) {
+        todoList.remove(todo);
+
+        todoList.insert(todoList.length, todo);
+      } else {
+        todoList.remove(todo);
+
+        todoList.insert(0, todo);
+      }
     });
   }
 
@@ -133,7 +145,7 @@ class _HomeState extends State<Home> {
 
   void addTodo(String todoText) {
     setState(() {
-      todoList.add(
+      todoList.insert(0,
           Todo(id: UniqueKey().toString(), todoText: todoText, isDone: false));
 
       print("todo added" + todoText);
