@@ -145,10 +145,11 @@ class _HomeState extends State<Home> {
 
   void addTodo(String todoText) {
     setState(() {
-      todoList.insert(0,
-          Todo(id: UniqueKey().toString(), todoText: todoText, isDone: false));
-
-      print("todo added" + todoText);
+      if (todoController.text.isNotEmpty)
+        todoList.insert(
+            0,
+            Todo(
+                id: UniqueKey().toString(), todoText: todoText, isDone: false));
     });
 
     todoController.clear();
